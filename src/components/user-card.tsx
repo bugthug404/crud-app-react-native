@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Button, Alert } from "react-native"; // Assuming Button is a custom component
 import { UserModel } from "../utils/user-model";
-import { useAuth } from "../utils/auth-hook";
-import { useAtomValue } from "jotai";
-import { userDataAtom } from "../utils/user-atom";
 import { useUserCrud } from "../utils/user-hook";
 
 export default function UserCard({
@@ -31,8 +28,7 @@ export default function UserCard({
         await userControl.deleteUser(user.id.toString());
       }
     } catch (error: any) {
-      // Handle error gracefully
-      // Alert.alert("Error", error.message);
+      Alert.alert("Error", error.message);
     } finally {
       refetch();
       setIsDeleting(false);
@@ -41,7 +37,6 @@ export default function UserCard({
 
   return (
     <View style={styles.container}>
-      {/* Replace <Loader /> with appropriate loading indicator */}
       <Text style={styles.name}>
         {user?.firstName} {user.lastName}
       </Text>
@@ -60,8 +55,6 @@ export default function UserCard({
 
 const styles = StyleSheet.create({
   container: {
-    // Adapt styling for React Native layout
-    // Example:
     width: "100%",
     maxWidth: 300,
     padding: 15,
@@ -74,9 +67,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
   },
-  details: {
-    // Adjust as needed
-  },
+  details: {},
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",

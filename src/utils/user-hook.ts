@@ -59,7 +59,7 @@ export function useUserCrud() {
     }
   }
 
-  async function addUser(userData: any) {
+  async function addUser(userData: any, callBack: Function) {
     setLoader(true);
     try {
       const data = await axios.post(`${apiConfig.api}/user/add`, userData, {
@@ -69,6 +69,7 @@ export function useUserCrud() {
         },
       });
       setLoader(false);
+      callBack();
       Alert.alert("User added successfully!");
 
       return { data, error: null };

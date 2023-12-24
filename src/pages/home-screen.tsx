@@ -20,7 +20,7 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
 
   return (
     <Center>
-      <AddUserModal open={open} setOpen={setOpen} />
+      <AddUserModal open={open} setOpen={setOpen} refetch={users.refetch} />
       <EditUserModal
         editId={editId}
         setEditId={setEditId}

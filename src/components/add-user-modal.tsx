@@ -18,7 +18,9 @@ import { useUserCrud } from "../utils/user-hook";
 export default function AddUserModal({
   open,
   setOpen,
+  refetch,
 }: {
+  refetch: Function;
   open: boolean;
   setOpen: Function;
 }) {
@@ -43,7 +45,7 @@ export default function AddUserModal({
   });
 
   const onSubmit = (data: any) => {
-    user.addUser(data);
+    user.addUser(data, refetch);
   };
 
   return (
