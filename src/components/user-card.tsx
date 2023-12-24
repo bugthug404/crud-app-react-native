@@ -4,27 +4,37 @@ import { UserModel } from "../utils/user-model";
 import { useAuth } from "../utils/auth-hook";
 import { useAtomValue } from "jotai";
 import { userDataAtom } from "../utils/user-atom";
+import { useUserCrud } from "../utils/user-hook";
 
 export default function UserCard({
   user,
   setEditId,
   isAdmin,
+  refetch,
+  isMe,
 }: {
+  isMe: boolean;
   isAdmin: boolean;
   user: UserModel;
   setEditId: Function;
+  refetch: Function;
 }) {
   const [isDeleting, setIsDeleting] = useState(false);
+  const userControl = useUserCrud();
 
   const handleDelete = async () => {
     setIsDeleting(true);
     try {
-      // await userControl.deleteUser(user.id.toString());
-      // Handle successful deletion (e.g., notify user or navigate back)
+      if (isMe) {
+        return alert("cannot delete myself");
+      } else {
+        await userControl.deleteUser(user.id.toString());
+      }
     } catch (error: any) {
       // Handle error gracefully
-      Alert.alert("Error", error.message);
+      // Alert.alert("Error", error.message);
     } finally {
+      refetch();
       setIsDeleting(false);
     }
   };

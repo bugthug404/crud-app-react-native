@@ -1,6 +1,6 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import AuthProvider from "./src/utils/auth-provider";
+import AuthProvider from "./src/components/auth-provider";
 import ToastManager from "toastify-react-native";
 import { QueryClient, QueryClientProvider } from "react-query";
 

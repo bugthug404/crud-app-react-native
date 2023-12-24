@@ -7,6 +7,7 @@ import AsyncStorage, {
   useAsyncStorage,
 } from "@react-native-async-storage/async-storage";
 import { userAuthTokenAtom, userDataAtom } from "./user-atom";
+import { Alert } from "react-native";
 
 export function useAuth() {
   const [user, setUser] = useAtom(userDataAtom);
@@ -30,19 +31,19 @@ export function useAuth() {
           setUser(response?.data?.user);
           await userStorage.setItem(JSON.stringify(response?.data));
         } else {
-          Toast.warn("mission data", "top");
+          alert("mission data");
         }
 
-        Toast.success("Login Successfull");
+        alert("Login Successfull");
       })
       .catch((error: any) => {
-        Toast.error("Login Failed", "top");
+        alert("Login Failed");
         error.message &&
           alert(`Api Response : ${JSON.stringify(error) ?? "no data"}`);
       });
   }
 
-  function signup(data: any) {
+  function signup(data: any, callBack: Function) {
     axios
       .post(`${apiConfig.api}/signup`, data, {
         headers: {
@@ -53,12 +54,17 @@ export function useAuth() {
         },
       })
       .then((response) => {
-        Toast.success("Signup Success");
+        callBack();
+        Alert.alert("Signup Success!");
       })
       .catch((error) => {
+        console.log(error);
         error.message &&
-          alert(`Api Response : ${JSON.stringify(error) ?? "no data"}`);
-        Toast.error("Signup Error", "top");
+          Alert.alert(
+            JSON.stringify(
+              error?.response?.data?.error ?? "Error Creating User"
+            )
+          );
       });
   }
 

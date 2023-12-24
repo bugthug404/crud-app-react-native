@@ -1,23 +1,22 @@
 import { useEffect, useState } from "react";
 import { Text, View } from "react-native";
-import Center from "../components/center";
+import Center from "./center";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "../pages/home-screen";
 import LoginScreen from "../pages/login-screen";
 import SignupScreen from "../pages/signup-screen";
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import { useAtom, useSetAtom } from "jotai";
-import { userAuthTokenAtom, userDataAtom } from "./user-atom";
-import Button from "../components/button";
-import { useAuth } from "./auth-hook";
-import SomethingNotRight from "./SomethingNotRight";
+import { userAuthTokenAtom, userDataAtom } from "../utils/user-atom";
+import Button from "./button";
+import { useAuth } from "../utils/auth-hook";
+import SomethingNotRight from "../utils/SomethingNotRight";
 
 export default function AuthProvider() {
   const [loading, setLoading] = useState<boolean | null>(null);
   const [user, setUser] = useAtom(userDataAtom);
   const [userToken, setUserToken] = useAtom(userAuthTokenAtom);
   const userData = useAsyncStorage("userData");
-  const auth = useAuth();
 
   const Stack = createNativeStackNavigator();
 

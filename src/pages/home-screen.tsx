@@ -63,6 +63,8 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
             user={u}
             setEditId={setEditId}
             isAdmin={user?.role === "admin"}
+            refetch={users.refetch}
+            isMe={u?.id === user?.id}
           />
         );
       })}

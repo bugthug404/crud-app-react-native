@@ -27,14 +27,15 @@ export default function SignupScreen({ navigation }: { navigation: any }) {
       mobile: "1234567890",
       profession: "NA",
       address: "iykyk",
-      role: "even idk",
+      role: "user",
       password: "123123",
     },
   });
 
   const onSubmit = (data: any) => {
-    auth.signup(data);
-    alert(JSON.stringify(data));
+    auth.signup(data, () => {
+      navigation.navigate("Login");
+    });
   };
 
   return (

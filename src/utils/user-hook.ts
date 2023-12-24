@@ -22,8 +22,10 @@ export function useUserCrud() {
         }
       );
       setLoader(false);
+      alert("User deleted successfully!");
       return { data };
-    } catch (error) {
+    } catch (error: any) {
+      alert(error?.response?.data?.error ?? "Error deleting user");
       setLoader(false);
       return { error };
     }
